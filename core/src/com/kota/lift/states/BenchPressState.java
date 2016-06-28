@@ -1,6 +1,7 @@
 package com.kota.lift.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kota.lift.Lift;
 
@@ -8,14 +9,14 @@ import com.kota.lift.Lift;
  * Created by Kota on 2016.06.26..
  */
 public class BenchPressState extends State{
-    public BenchPressState(GameStateManager gsm) {
-        super(gsm);
+    public BenchPressState(GameStateManager gsm, OrthographicCamera camera) {
+        super(gsm, camera);
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            manager.set(new BaseState(manager));
+            shift=true;
             //dispose();
         }
     }
@@ -23,13 +24,17 @@ public class BenchPressState extends State{
     @Override
     public void update(float timeDifference) {
         handleInput();
+        if(shift) {
+            shiftScreen(new BaseState(manager, this.camera), -2);
+        }
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        //batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.projection);
+        batch.setTransformMatrix(camera.view);
         batch.begin();
-        batch.draw(background, -((Lift.PADDING + Lift.STATE_WIDTH) * 2), 0);
+        batch.draw(background, 0, 0);
         batch.end();
     }
 

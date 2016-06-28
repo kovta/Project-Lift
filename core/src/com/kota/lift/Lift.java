@@ -3,8 +3,11 @@ package com.kota.lift;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kota.lift.states.BaseState;
 import com.kota.lift.states.GameStateManager;
 
@@ -18,12 +21,21 @@ public class Lift extends ApplicationAdapter {
 	private GameStateManager manager;
 	private SpriteBatch batch;
 
+	OrthographicCamera camera;
+	Viewport viewport;
+
 	@Override
 	public void create () {
 		manager = new GameStateManager();
 		batch = new SpriteBatch();
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		manager.push(new BaseState(manager));
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false);
+		camera.position.set(STATE_WIDTH/2f, HEIGHT/2, 0);
+		camera.update();
+		viewport = new FitViewport(STATE_WIDTH, HEIGHT, camera);
+		viewport.apply();
+		manager.push(new BaseState(manager, camera));
 	}
 
 	@Override
@@ -31,5 +43,10 @@ public class Lift extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		manager.update(Gdx.graphics.getDeltaTime());
 		manager.render(batch);
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		viewport.update(width, height);
 	}
 }
