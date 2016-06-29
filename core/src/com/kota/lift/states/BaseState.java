@@ -11,7 +11,7 @@ import com.kota.lift.Lift;
  * Created by Kota on 2016.06.26..
  */
 public class BaseState extends State {
-    private boolean shift = false;            //érintésre való eltolás próbálgatása, ( szerencsétlenkedés :D )
+    //private boolean shift = false;            //érintésre való eltolás próbálgatása, ( szerencsétlenkedés :D )
 
     public BaseState(GameStateManager gsm, OrthographicCamera camera) {
         super(gsm, camera);
@@ -30,7 +30,7 @@ public class BaseState extends State {
     public void update(float timeDifference) {
         handleInput();
         if(shift){
-            shiftScreen(new SquatState(manager, camera),1);
+            shiftScreen(manager.getState("SquatState"),1);
         }
         //camera.update();
     }

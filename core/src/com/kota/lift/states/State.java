@@ -24,7 +24,10 @@ public abstract class State {
     protected int remainingPixels = Lift.STATE_WIDTH+Lift.PADDING;
 
     public State (GameStateManager gsm, OrthographicCamera camera){
-        this.manager = gsm; mouse = new Vector3(); this.camera = camera; background = new Texture("gymbg_hd.png");
+        this.manager = gsm;
+        mouse = new Vector3();
+        this.camera = camera;
+        background = manager.getAssetManager().get("gymbg_hd.png");
     }
 
     public abstract void handleInput();
@@ -39,7 +42,7 @@ public abstract class State {
             float delta = Gdx.graphics.getDeltaTime();
             float pixelsToShift = (int)((Lift.STATE_WIDTH+Lift.PADDING)*delta/shiftTime);
             pixelsToShift = Math.min(pixelsToShift, remainingPixels);
-            //Gdx.app.log("Pixels rremaining:", Float.toString(remainingPixels));
+            //Gdx.app.log("Pixels remaining:", Float.toString(remainingPixels));
             remainingPixels-=pixelsToShift;
             //Gdx.app.log("Pixels to shift:", Float.toString(remainingPixels));
 

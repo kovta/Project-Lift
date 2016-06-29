@@ -25,7 +25,7 @@ public class SquatState extends State {
     public void update(float timeDifference) {
         handleInput();
         if(shift){
-            shiftScreen(new BenchPressState(manager, this.camera),1);
+            shiftScreen(manager.getState("BenchPressState"),1);
         }
     }
 

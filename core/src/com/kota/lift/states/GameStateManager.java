@@ -3,8 +3,11 @@ package com.kota.lift.states;
 /**
  * Created by Kota on 2016.06.26..
  */
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -12,9 +15,13 @@ import java.util.Stack;
  */
 public class GameStateManager {
     private Stack<State> states;
+    private StateFactory stateFactory;
+    private AssetManager assetManager;
 
-    public GameStateManager(){
+    public GameStateManager(StateFactory factory, AssetManager manager){
         states = new Stack<State>();
+        this.stateFactory=factory;
+        this.assetManager=manager;
     }
 
     public void push(State state){
@@ -36,5 +43,13 @@ public class GameStateManager {
 
     public void render(SpriteBatch batch){
         states.peek().render(batch);
+    }
+
+    public State getState(String stateType){
+        return stateFactory.getState(stateType, this);
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
     }
 }

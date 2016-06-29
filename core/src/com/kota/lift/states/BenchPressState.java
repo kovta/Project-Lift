@@ -25,7 +25,7 @@ public class BenchPressState extends State{
     public void update(float timeDifference) {
         handleInput();
         if(shift) {
-            shiftScreen(new BaseState(manager, this.camera), -2);
+            shiftScreen(manager.getState("BaseState"), -2);
         }
     }
 
