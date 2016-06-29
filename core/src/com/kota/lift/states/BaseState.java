@@ -20,7 +20,7 @@ public class BaseState extends State {
         if(Gdx.input.justTouched()){
             ShiftState shiftState = (ShiftState) manager.getState("ShiftState");
             shiftState.setShift("SquatState", 1);
-            manager.push(shiftState);
+            manager.set(shiftState);
         }
     }
 

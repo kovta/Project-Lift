@@ -18,7 +18,7 @@ public class SquatState extends State {
         if(Gdx.input.justTouched()){
             ShiftState shiftState = (ShiftState) manager.getState("ShiftState");
             shiftState.setShift("BenchPressState", 1);
-            manager.push(shiftState);
+            manager.set(shiftState);
         }
     }
 

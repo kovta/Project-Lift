@@ -18,7 +18,7 @@ public class BenchPressState extends State{
         if(Gdx.input.justTouched()){
             ShiftState shiftState = (ShiftState) manager.getState("ShiftState");
             shiftState.setShift("BaseState", -2);
-            manager.push(shiftState);
+            manager.set(shiftState);
         }
     }
 
