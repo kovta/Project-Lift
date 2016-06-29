@@ -38,7 +38,7 @@ public class Lift extends ApplicationAdapter {
 		camera.update();
 		viewport = new FitViewport(STATE_WIDTH, HEIGHT, camera);
 		viewport.apply();
-		manager = new GameStateManager(new StateFactory(camera), assetManager);
+		manager = new GameStateManager(assetManager, new StateFactory(), camera);
 		assetManager.load("gymbg_hd.png", Texture.class);
 		assetManager.finishLoading();
 		manager.push(manager.getState("BaseState"));

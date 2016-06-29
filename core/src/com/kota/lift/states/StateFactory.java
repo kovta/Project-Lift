@@ -2,18 +2,13 @@ package com.kota.lift.states;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class StateFactory {
-    Map<String, State> stateMap = new HashMap<String, State>();
-    OrthographicCamera camera;
 
-    public StateFactory(OrthographicCamera cam){
-        this.camera=cam;
+    public StateFactory(){
+
     }
 
-    private State makeState(String stateType, GameStateManager manager){
+    public State makeState(String stateType, GameStateManager manager, OrthographicCamera camera){
         State returnState=null;
         if(stateType.equalsIgnoreCase("BaseState")){
             returnState= new BaseState(manager, camera);
@@ -21,15 +16,9 @@ public class StateFactory {
             returnState= new SquatState(manager,camera);
         }else if(stateType.equalsIgnoreCase("BenchPressState")){
             returnState= new BenchPressState(manager, camera);
+        }else if(stateType.equalsIgnoreCase("ShiftState")) {
+            returnState = new ShiftState(manager, camera);
         }
         return returnState;
-    }
-
-    public State getState(String stateType, GameStateManager manager){
-        State returnValue = stateMap.get(stateType);
-        if(returnValue==null){
-            returnValue=makeState(stateType, manager);
-        }
-        return returnValue;
     }
 }

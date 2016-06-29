@@ -4,6 +4,7 @@ package com.kota.lift.states;
  * Created by Kota on 2016.06.26..
  */
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.HashMap;
@@ -15,13 +16,15 @@ import java.util.Stack;
  */
 public class GameStateManager {
     private Stack<State> states;
-    private StateFactory stateFactory;
     private AssetManager assetManager;
+    private StateFactory factory;
+    private OrthographicCamera camera;
 
-    public GameStateManager(StateFactory factory, AssetManager manager){
+    public GameStateManager(AssetManager manager, StateFactory factory, OrthographicCamera camera){
         states = new Stack<State>();
-        this.stateFactory=factory;
         this.assetManager=manager;
+        this.camera=camera;
+        this.factory=factory;
     }
 
     public void push(State state){
@@ -45,11 +48,11 @@ public class GameStateManager {
         states.peek().render(batch);
     }
 
-    public State getState(String stateType){
-        return stateFactory.getState(stateType, this);
-    }
-
     public AssetManager getAssetManager() {
         return assetManager;
+    }
+
+    public State getState(String stateType){
+        return factory.makeState(stateType, this, camera);
     }
 }

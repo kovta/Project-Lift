@@ -16,17 +16,15 @@ public class SquatState extends State {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            shift=true;
-            //dispose();
+            ShiftState shiftState = (ShiftState) manager.getState("ShiftState");
+            shiftState.setShift("BenchPressState", 1);
+            manager.push(shiftState);
         }
     }
 
     @Override
     public void update(float timeDifference) {
         handleInput();
-        if(shift){
-            shiftScreen(manager.getState("BenchPressState"),1);
-        }
     }
 
     @Override

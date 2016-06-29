@@ -16,17 +16,15 @@ public class BenchPressState extends State{
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            shift=true;
-            //dispose();
+            ShiftState shiftState = (ShiftState) manager.getState("ShiftState");
+            shiftState.setShift("BaseState", -2);
+            manager.push(shiftState);
         }
     }
 
     @Override
     public void update(float timeDifference) {
         handleInput();
-        if(shift) {
-            shiftScreen(manager.getState("BaseState"), -2);
-        }
     }
 
     @Override
