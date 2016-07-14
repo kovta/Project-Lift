@@ -1,49 +1,61 @@
 package com.kota.lift.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kota.lift.CustomGestureDetector;
 import com.kota.lift.Lift;
 
 /**
  * Created by Kota on 2016.06.26..
  */
 public class BaseState extends State {
-    private boolean shift = false;            //érintésre való eltolás próbálgatása, ( szerencsétlenkedés :D )
+    public BaseState(GameStateManager gsm, OrthographicCamera camera) {
+        super(gsm, camera);
+        Gdx.input.setInputProcessor(new CustomGestureDetector(new CustomGestureDetector.DirectionListener() {
+            @Override
+            public void onUp() {
 
-    public BaseState(GameStateManager gsm) {
-        super(gsm);
-        camera.setToOrtho(false, (Lift.WIDTH - (2*Lift.PADDING)) / 3, Lift.HEIGHT);
+            }
+            @Override
+            public void onRight() {
+
+            }
+            @Override
+            public void onLeft() {
+                ShiftState shiftState = (ShiftState) manager.getState("ShiftState");
+                shiftState.setShift("SquatState", 1);
+                manager.set(shiftState);
+            }
+            @Override
+            public void onDown() {
+
+            }
+        }));
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            shift = true;
-            //manager.set(new SquatState(manager));
-            //dispose();
+            /*ShiftState shiftState = (ShiftState) manager.getState("ShiftState");
+            shiftState.setShift("SquatState", 1);
+            manager.set(shiftState);*/
         }
     }
 
     @Override
     public void update(float timeDifference) {
         handleInput();
-        camera.update();
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.projection);
+        batch.setTransformMatrix(camera.view);
         batch.begin();
         batch.draw(background, 0, 0);
-        if(shift){
-            for(int i = 0; i < 288; i++){
-                batch.draw(background, i, 0);
-                camera.update();
-            }
-            manager.set(new SquatState(manager));
-        }
-
         batch.end();
     }
 
