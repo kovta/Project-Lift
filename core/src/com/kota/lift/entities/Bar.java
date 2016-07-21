@@ -41,7 +41,7 @@ public class Bar {
         int i = 0;
         while(!(i >= weights.length) && weights[i] == 20) i++;
         if(i >= weights.length) return;
-        weights[i] += 5;
+        weights[i] += 20;
         textureHolder[i] = new Texture(Integer.toString(weights[i]) + ".png");
     }
 
