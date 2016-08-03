@@ -7,13 +7,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kota.lift.CustomGestureDetector;
 import com.kota.lift.Lift;
+import com.kota.lift.entities.Player;
 
 /**
  * Created by Kota on 2016.06.26..
  */
 public class BaseState extends State {
+    private Player player;
+
     public BaseState(GameStateManager gsm, OrthographicCamera camera) {
         super(gsm, camera);
+        this.player = new Player(30, 30);
         Gdx.input.setInputProcessor(new CustomGestureDetector(new CustomGestureDetector.DirectionListener() {
             @Override
             public void onUp() {
@@ -48,6 +52,7 @@ public class BaseState extends State {
     @Override
     public void update(float timeDifference) {
         handleInput();
+        player.increment();
     }
 
     @Override
@@ -56,6 +61,7 @@ public class BaseState extends State {
         batch.setTransformMatrix(camera.view);
         batch.begin();
         batch.draw(background, 0, 0);
+        batch.draw(player.getImage(), player.getPosition().x, player.getPosition().y);
         batch.end();
     }
 
