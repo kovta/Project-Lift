@@ -80,6 +80,7 @@ public class SquatState extends State {
         }
         batch.draw(guard, bar.getPosition().x + 63, bar.getPosition().y + 12);
         batch.draw(guard, bar.getPosition().x + 191, bar.getPosition().y + 12);
+        font.draw(batch, "test", 382, 100);
         batch.end();
     }
 

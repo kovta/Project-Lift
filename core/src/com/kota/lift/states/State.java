@@ -3,6 +3,7 @@ package com.kota.lift.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
@@ -17,12 +18,14 @@ public abstract class State {
     protected Vector3 mouse;
     protected GameStateManager manager;
     protected Texture background;
+    protected BitmapFont font;
 
     public State (GameStateManager gsm, OrthographicCamera camera){
         this.manager = gsm;
-        mouse = new Vector3();
+        this.mouse = new Vector3();
         this.camera = camera;
-        background = manager.getAssetManager().get("gymbg_hd.png");
+        this.background = manager.getAssetManager().get("gymbg_hd.png");
+        this.font = new BitmapFont(Gdx.files.internal("vcr_osd_mono.fnt"));
     }
 
     public abstract void handleInput();
