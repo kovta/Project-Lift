@@ -3,3 +3,4 @@ add component
 comments
 doc
 dep
+rate
