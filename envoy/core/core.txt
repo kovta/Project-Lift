@@ -2,3 +2,4 @@ core
 add component
 comments
 doc
+dep
