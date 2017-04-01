@@ -2,3 +2,4 @@ resources
 code
 lib
 lib2
+auth
